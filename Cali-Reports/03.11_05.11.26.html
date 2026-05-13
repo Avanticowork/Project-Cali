@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joyería Cali & Co. — Ad Performance Report</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #E5C8A6;
+    --sand-light: #F5EDE3;
+    --sand-lighter: #FAF7F2;
+    --travertine: #E2D8C6;
+    --warm-stone: #DBC6A5;
+    --charcoal: #252424;
+    --charcoal-soft: #3a3838;
+    --white: #FFFFFF;
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-border: rgba(226, 216, 198, 0.4);
+    --glass-shadow: 0 8px 32px rgba(37, 36, 36, 0.08);
+    --blue-msg: #1B4F72;
+    --blue-msg-light: rgba(27, 79, 114, 0.12);
+    --red-lead: #7B241C;
+    --red-lead-light: rgba(123, 36, 28, 0.12);
+    --green-win: #1E6B45;
+    --green-win-light: rgba(30, 107, 69, 0.08);
+    --gold-accent: #C4A265;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sand-lighter);
+    color: var(--charcoal);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .bg-texture {
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 0%, rgba(229,200,166,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(219,198,165,0.25) 0%, transparent 60%),
+      var(--sand-lighter);
+    z-index: -1;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  /* HEADER */
+  .report-header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 48px 32px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: var(--glass-shadow);
+  }
+  .report-header .brand-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-accent);
+    margin-bottom: 12px;
+  }
+  .report-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 600;
+    color: var(--charcoal);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .report-header .subtitle {
+    font-size: 15px;
+    color: var(--charcoal-soft);
+    font-weight: 400;
+    opacity: 0.7;
+  }
+
+  /* NAV */
+  .page-nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .page-nav button {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 22px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border-radius: 100px;
+    cursor: pointer;
+    color: var(--charcoal-soft);
+    transition: all 0.3s;
+  }
+  .page-nav button:hover, .page-nav button.active {
+    background: var(--charcoal);
+    color: var(--white);
+    border-color: var(--charcoal);
+  }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* GLASS CARD */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+  .glass-tight { padding: 24px; }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: var(--charcoal);
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.5;
+  }
+
+  /* KPI ROW */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .kpi {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-align: center;
+  }
+  .kpi .kpi-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--charcoal);
+    line-height: 1.1;
+  }
+  .kpi .kpi-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--charcoal-soft);
+    opacity: 0.6;
+    margin-top: 6px;
+  }
+  .kpi.accent-blue { border-left: 3px solid var(--blue-msg); }
+  .kpi.accent-red { border-left: 3px solid var(--red-lead); }
+  .kpi.accent-green { border-left: 3px solid var(--green-win); }
+
+  /* CHART CONTAINERS */
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    margin: 16px 0;
+  }
+  .chart-wrap.short { height: 260px; }
+  .chart-wrap.tall { height: 380px; }
+
+  /* TWO COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* WINNER CARD */
+  .winner-card {
+    background: linear-gradient(135deg, rgba(30,107,69,0.06) 0%, rgba(196,162,101,0.08) 100%);
+    border: 1px solid rgba(30,107,69,0.2);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .winner-card::before {
+    content: '★';
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    font-size: 28px;
+    color: var(--gold-accent);
+    opacity: 0.5;
+  }
+  .winner-card .winner-tag {
+    display: inline-block;
+    background: var(--green-win);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+  }
+  .winner-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .winner-card .winner-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .winner-card .ws {
+    text-align: left;
+  }
+  .winner-card .ws-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 700;
+  }
+  .winner-card .ws-lab {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.5;
+    font-weight: 600;
+  }
+
+  /* TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .data-table thead th {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--charcoal-soft);
+    opacity: 0.5;
+    text-align: right;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--travertine);
+  }
+  .data-table thead th:first-child { text-align: left; }
+  .data-table tbody td {
+    padding: 12px 12px;
+    text-align: right;
+    border-bottom: 1px solid rgba(226,216,198,0.3);
+    font-variant-numeric: tabular-nums;
+  }
+  .data-table tbody td:first-child {
+    text-align: left;
+    font-weight: 500;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .data-table tbody tr:hover { background: rgba(229,200,166,0.08); }
+  .type-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 6px;
+  }
+  .type-badge.msg { background: var(--blue-msg-light); color: var(--blue-msg); }
+  .type-badge.lead { background: var(--red-lead-light); color: var(--red-lead); }
+  .type-badge.boost { background: rgba(74,35,90,0.1); color: #4A235A; }
+
+  .highlight-row { background: var(--green-win-light) !important; }
+
+  /* MD SECTION */
+  .md-hero {
+    text-align: center;
+    padding: 40px 32px;
+    background: linear-gradient(135deg, rgba(123,36,28,0.05) 0%, rgba(229,200,166,0.15) 100%);
+    border: 1px solid rgba(123,36,28,0.15);
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+  .md-hero .md-emoji { font-size: 40px; margin-bottom: 12px; }
+  .md-hero h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 600;
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.4;
+    margin-top: 48px;
+    padding: 24px;
+  }
+
+  /* PRINT */
+  @media print {
+    .page-nav { display: none; }
+    .page { display: block !important; page-break-after: always; }
+    .bg-texture { display: none; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+<div class="bg-texture"></div>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="report-header">
+    <div class="brand-tag">Prepared by Avanti Collective</div>
+    <h1>Joyería Cali & Co.</h1>
+    <div class="subtitle">Meta Advertising Performance Report · March 11 – May 11, 2026</div>
+  </div>
+
+  <!-- NAV -->
+  <div class="page-nav">
+    <button class="active" onclick="showPage('overview')">Overview</button>
+    <button onclick="showPage('winners')">Top Performers</button>
+    <button onclick="showPage('messaging')">Messaging Campaigns</button>
+    <button onclick="showPage('leads')">Lead Campaigns</button>
+    <button onclick="showPage('mothers')">Mother's Day</button>
+    <button onclick="showPage('audience')">Audience</button>
+  </div>
+
+  <!-- PAGE 1: OVERVIEW -->
+  <div id="page-overview" class="page active">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-value">$17,797</div><div class="kpi-label">Total Spend</div></div>
+      <div class="kpi accent-blue"><div class="kpi-value">997</div><div class="kpi-label">Conversations</div></div>
+      <div class="kpi accent-red"><div class="kpi-value">1,043</div><div class="kpi-label">Leads</div></div>
+      <div class="kpi"><div class="kpi-value">902K</div><div class="kpi-label">People Reached</div></div>
+      <div class="kpi"><div class="kpi-value">1.64M</div><div class="kpi-label">Impressions</div></div>
+    </div>
+
+    <div class="glass">
+      <div class="section-label">Weekly trend</div>
+      <div class="section-title">Total Ad Spend by Week</div>
+      <div class="chart-wrap"><canvas id="chart-weekly-spend"></canvas></div>
+    </div>
+
+    <div class="two-col">
+      <div class="glass glass-tight">
+        <div class="section-label">Spend allocation</div>
+        <div class="section-title">Messaging vs. Leads</div>
+        <div class="chart-wrap short"><canvas id="chart-spend-split"></canvas></div>
+      </div>
+      <div class="glass glass-tight">
+        <div class="section-label">Weekly output</div>
+        <div class="section-title">Results by Week</div>
+        <div class="chart-wrap short"><canvas id="chart-results-weekly"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 2: WINNERS -->
+  <div id="page-winners" class="page">
+    <div class="section-title" style="margin-bottom:20px;">Top Performing Ad Sets</div>
+
+    <div class="two-col" style="margin-bottom:24px;">
+      <div class="winner-card">
+        <div class="winner-tag">Best Messaging Ad Set</div>
+        <h3>MultiComM_FAQ WhatsApp</h3>
+        <p style="font-size:13px;opacity:0.6;">Lowest cost per conversation across all messaging campaigns</p>
+        <div class="winner-stats">
+          <div class="ws"><div class="ws-val">$7.24</div><div class="ws-lab">Cost / Convo</div></div>
+          <div class="ws"><div class="ws-val">369</div><div class="ws-lab">Conversations</div></div>
+          <div class="ws"><div class="ws-val">$2,673</div><div class="ws-lab">Spend</div></div>
+          <div class="ws"><div class="ws-val">160K</div><div class="ws-lab">Reach</div></div>
+        </div>
+      </div>
+      <div class="winner-card">
+        <div class="winner-tag">Best Lead Ad Set</div>
+        <h3>Gen_Lead_2.13</h3>
+        <p style="font-size:13px;opacity:0.6;">Lowest cost per lead across all lead generation campaigns</p>
+        <div class="winner-stats">
+          <div class="ws"><div class="ws-val">$5.96</div><div class="ws-lab">Cost / Lead</div></div>
+          <div class="ws"><div class="ws-val">502</div><div class="ws-lab">Leads</div></div>
+          <div class="ws"><div class="ws-val">$2,991</div><div class="ws-lab">Spend</div></div>
+          <div class="ws"><div class="ws-val">200K</div><div class="ws-lab">Reach</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass">
+      <div class="section-label">All ad sets ranked</div>
+      <div class="section-title">Performance Leaderboard</div>
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead><tr><th>Ad Set</th><th>Type</th><th>Spend</th><th>Results</th><th>Cost/Result</th><th>Reach</th><th>Impressions</th></tr></thead>
+          <tbody id="leaderboard-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="glass">
+      <div class="section-label">Cost efficiency</div>
+      <div class="section-title">Cost per Result by Ad Set</div>
+      <div class="chart-wrap tall"><canvas id="chart-cpr-bar"></canvas></div>
+    </div>
+  </div>
+
+  <!-- PAGE 3: MESSAGING -->
+  <div id="page-messaging" class="page">
+    <div class="kpi-row">
+      <div class="kpi accent-blue"><div class="kpi-value" id="msg-spend-kpi"></div><div class="kpi-label">Messaging Spend</div></div>
+      <div class="kpi accent-blue"><div class="kpi-value">997</div><div class="kpi-label">Conversations</div></div>
+      <div class="kpi"><div class="kpi-value" id="msg-avg-cpr"></div><div class="kpi-label">Avg Cost/Convo</div></div>
+    </div>
+    <div class="glass">
+      <div class="section-label">Messaging campaigns</div>
+      <div class="section-title">Weekly Spend by Ad Set</div>
+      <div class="chart-wrap tall"><canvas id="chart-msg-stacked"></canvas></div>
+    </div>
+    <div class="glass">
+      <div class="section-label">Efficiency trend</div>
+      <div class="section-title">Cost per Conversation by Week</div>
+      <div class="chart-wrap"><canvas id="chart-msg-cpr-trend"></canvas></div>
+    </div>
+  </div>
+
+  <!-- PAGE 4: LEADS -->
+  <div id="page-leads" class="page">
+    <div class="kpi-row">
+      <div class="kpi accent-red"><div class="kpi-value" id="lead-spend-kpi"></div><div class="kpi-label">Lead Spend</div></div>
+      <div class="kpi accent-red"><div class="kpi-value">1,043</div><div class="kpi-label">Leads</div></div>
+      <div class="kpi"><div class="kpi-value" id="lead-avg-cpr"></div><div class="kpi-label">Avg Cost/Lead</div></div>
+    </div>
+    <div class="glass">
+      <div class="section-label">Lead campaigns</div>
+      <div class="section-title">Weekly Spend by Ad Set</div>
+      <div class="chart-wrap tall"><canvas id="chart-lead-stacked"></canvas></div>
+    </div>
+    <div class="glass">
+      <div class="section-label">Efficiency trend</div>
+      <div class="section-title">Cost per Lead by Week</div>
+      <div class="chart-wrap"><canvas id="chart-lead-cpr-trend"></canvas></div>
+    </div>
+  </div>
+
+  <!-- PAGE 5: MOTHER'S DAY -->
+  <div id="page-mothers" class="page">
+    <div class="md-hero">
+      <div class="md-emoji">💐</div>
+      <h2>Mother's Day Campaign</h2>
+      <p style="font-size:14px;opacity:0.6;margin-top:8px;">Día de las Madres 2026 · April 22 – May 11</p>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-value">$2,570</div><div class="kpi-label">Total Spend</div></div>
+      <div class="kpi accent-red"><div class="kpi-value">210</div><div class="kpi-label">Leads</div></div>
+      <div class="kpi accent-blue"><div class="kpi-value">34</div><div class="kpi-label">Conversations</div></div>
+      <div class="kpi accent-green"><div class="kpi-value">$10.53</div><div class="kpi-label">Avg Cost/Result</div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="glass glass-tight">
+        <div class="section-label">Spend by ad set</div>
+        <div class="section-title">Mother's Day Breakdown</div>
+        <div class="chart-wrap short"><canvas id="chart-md-donut"></canvas></div>
+      </div>
+      <div class="glass glass-tight">
+        <div class="section-label">Week over week</div>
+        <div class="section-title">Weekly Spend & Leads</div>
+        <div class="chart-wrap short"><canvas id="chart-md-weekly"></canvas></div>
+      </div>
+    </div>
+
+    <div class="glass">
+      <div class="section-label">Ad set detail</div>
+      <div class="section-title">Mother's Day Ad Sets</div>
+      <table class="data-table">
+        <thead><tr><th>Ad Set</th><th>Type</th><th>Spend</th><th>Results</th><th>Cost/Result</th><th>Reach</th><th>Impressions</th></tr></thead>
+        <tbody>
+          <tr><td>MD26_Leadwa_Discount</td><td><span class="type-badge lead">Lead</span></td><td>$1,702</td><td>166</td><td>$10.25</td><td>43,583</td><td>117,235</td></tr>
+          <tr><td>MD26_Leadwa</td><td><span class="type-badge lead">Lead</span></td><td>$457</td><td>44</td><td>$10.39</td><td>20,111</td><td>31,276</td></tr>
+          <tr><td>MD26Wa_mess</td><td><span class="type-badge msg">Messaging</span></td><td>$411</td><td>34</td><td>$12.08</td><td>12,755</td><td>25,828</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PAGE 6: AUDIENCE -->
+  <div id="page-audience" class="page">
+    <div class="two-col">
+      <div class="glass">
+        <div class="section-label">Demographics</div>
+        <div class="section-title">Spend by Age Group</div>
+        <div class="chart-wrap"><canvas id="chart-age"></canvas></div>
+      </div>
+      <div class="glass">
+        <div class="section-label">Demographics</div>
+        <div class="section-title">Spend by Gender</div>
+        <div class="chart-wrap"><canvas id="chart-gender"></canvas></div>
+      </div>
+    </div>
+    <div class="glass">
+      <div class="section-label">Efficiency by age</div>
+      <div class="section-title">Cost per Result by Age Group</div>
+      <div class="chart-wrap short"><canvas id="chart-age-cpr"></canvas></div>
+    </div>
+    <div class="glass">
+      <div class="section-label">Age breakdown</div>
+      <div class="section-title">Age Group Detail</div>
+      <table class="data-table">
+        <thead><tr><th>Age</th><th>Spend</th><th>% of Spend</th><th>Results</th><th>Cost/Result</th></tr></thead>
+        <tbody id="age-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer-note">Joyería Cali & Co. · Prepared by Avanti Collective · Data: Meta Ads Manager</div>
+</div>
+
+<script>
+// DATA
+const weekly = [{"label":"03-11","spend":933.26,"msg_spend":403.4,"lead_spend":529.86,"msg_convos":53,"leads":129,"msg_cpr":7.61,"lead_cpr":4.11},{"label":"03-18","spend":1046.87,"msg_spend":427.25,"lead_spend":619.62,"msg_convos":82,"leads":123,"msg_cpr":5.21,"lead_cpr":5.04},{"label":"03-25","spend":1768.0,"msg_spend":1135.1,"lead_spend":632.9,"msg_convos":141,"leads":122,"msg_cpr":8.05,"lead_cpr":5.19},{"label":"04-01","spend":1805.37,"msg_spend":1186.7,"lead_spend":618.67,"msg_convos":125,"leads":88,"msg_cpr":9.49,"lead_cpr":7.03},{"label":"04-08","spend":1786.16,"msg_spend":1162.99,"lead_spend":623.17,"msg_convos":99,"leads":92,"msg_cpr":11.75,"lead_cpr":6.77},{"label":"04-15","spend":1948.77,"msg_spend":1319.17,"lead_spend":629.6,"msg_convos":137,"leads":72,"msg_cpr":9.63,"lead_cpr":8.74},{"label":"04-22","spend":2614.39,"msg_spend":1680.56,"lead_spend":933.83,"msg_convos":131,"leads":96,"msg_cpr":12.83,"lead_cpr":9.73},{"label":"04-29","spend":3219.9,"msg_spend":1433.82,"lead_spend":1685.02,"msg_convos":127,"leads":175,"msg_cpr":11.29,"lead_cpr":9.63},{"label":"05-06","spend":2673.78,"msg_spend":1251.07,"lead_spend":1343.95,"msg_convos":102,"leads":146,"msg_cpr":12.27,"lead_cpr":9.21}];
+
+const adsets = [{"name":"Gen26_WA_3.24.26","type":"messaging","spend":3095.21,"results":289,"cpr":10.71,"reach":133576,"impressions":277393},{"name":"Gen_Lead_2.13","type":"lead","spend":2991.48,"results":502,"cpr":5.96,"reach":199932,"impressions":310608},{"name":"MultiComM_FAQ WhatsApp","type":"messaging","spend":2673.17,"results":369,"cpr":7.24,"reach":160374,"impressions":294415},{"name":"Gen_Lead_2.23","type":"lead","spend":2465.84,"results":331,"cpr":7.45,"reach":152443,"impressions":228397},{"name":"MD26_Leadwa_Discount","type":"lead","spend":1702.19,"results":166,"cpr":10.25,"reach":43583,"impressions":117235},{"name":"Existing_WA_4.26","type":"messaging","spend":1639.51,"results":154,"cpr":10.65,"reach":70978,"impressions":150301},{"name":"Gen26_AD_3.25.26","type":"messaging","spend":1427.31,"results":109,"cpr":13.09,"reach":67299,"impressions":123814},{"name":"MD26_Leadwa","type":"lead","spend":457.11,"results":44,"cpr":10.39,"reach":20111,"impressions":31276},{"name":"MD26Wa_mess","type":"messaging","spend":410.86,"results":34,"cpr":12.08,"reach":12755,"impressions":25828},{"name":"Gen26_IGFB_3.25.26","type":"messaging","spend":368.86,"results":18,"cpr":20.49,"reach":16525,"impressions":37115},{"name":"Gen26_WA_5.9","type":"messaging","spend":166.2,"results":13,"cpr":12.78,"reach":9137,"impressions":13683},{"name":"Comm1_vids_IG","type":"messaging","spend":97.6,"results":5,"cpr":19.52,"reach":5492,"impressions":8291},{"name":"Comm1_Vids_FB","type":"messaging","spend":91.89,"results":6,"cpr":15.32,"reach":4582,"impressions":9728}];
+
+const ageData = [{"age":"18-24","spend":133.76,"pct":0.8,"results":92,"cpr":1.45},{"age":"25-34","spend":6861.18,"pct":38.6,"results":2373,"cpr":2.89},{"age":"35-44","spend":5704.85,"pct":32.1,"results":3139,"cpr":1.82},{"age":"45-54","spend":3143.92,"pct":17.7,"results":4191,"cpr":0.75},{"age":"55-64","spend":1378.17,"pct":7.7,"results":2755,"cpr":0.5},{"age":"65+","spend":574.24,"pct":3.2,"results":80,"cpr":7.18}];
+
+const genderData = [{"gender":"Female","spend":8556.28,"pct":48.1},{"gender":"Male","spend":9157.95,"pct":51.5}];
+
+const mdWeekly = [{"label":"04-22","spend":585.42,"leads":33,"msgs":18},{"label":"04-29","spend":1192.55,"leads":104,"msgs":16},{"label":"05-06","spend":792.19,"leads":78,"msgs":0}];
+
+// CHART DEFAULTS
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#252424';
+Chart.defaults.plugins.legend.labels.usePointStyle = true;
+Chart.defaults.plugins.legend.labels.pointStyleWidth = 10;
+Chart.defaults.plugins.legend.labels.padding = 16;
+
+const gridColor = 'rgba(226,216,198,0.35)';
+const msgColor = '#1B4F72';
+const msgColorLight = 'rgba(27,79,114,0.15)';
+const leadColor = '#7B241C';
+const leadColorLight = 'rgba(123,36,28,0.15)';
+const sandColor = '#C4A265';
+const sandColorLight = 'rgba(196,162,101,0.2)';
+const stoneColor = '#DBC6A5';
+
+function $(id) { return document.getElementById(id); }
+function fmt(n) { return '$' + n.toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0}); }
+function fmtD(n) { return '$' + n.toFixed(2); }
+
+// NAV
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.page-nav button').forEach(b => b.classList.remove('active'));
+  $('page-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// KPIs
+const totalMsgSpend = adsets.filter(a=>a.type==='messaging').reduce((s,a)=>s+a.spend,0);
+const totalLeadSpend = adsets.filter(a=>a.type==='lead').reduce((s,a)=>s+a.spend,0);
+$('msg-spend-kpi').textContent = fmt(totalMsgSpend);
+$('lead-spend-kpi').textContent = fmt(totalLeadSpend);
+$('msg-avg-cpr').textContent = fmtD(totalMsgSpend / 997);
+$('lead-avg-cpr').textContent = fmtD(totalLeadSpend / 1043);
+
+// CHART 1: Weekly spend area
+new Chart($('chart-weekly-spend'), {
+  type: 'line',
+  data: {
+    labels: weekly.map(w => w.label),
+    datasets: [{
+      label: 'Total Spend',
+      data: weekly.map(w => w.spend),
+      borderColor: sandColor,
+      backgroundColor: sandColorLight,
+      fill: true,
+      tension: 0.35,
+      pointRadius: 5,
+      pointBackgroundColor: '#fff',
+      pointBorderColor: sandColor,
+      pointBorderWidth: 2,
+      borderWidth: 2.5,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      y: { beginAtZero: true, grid: { color: gridColor }, ticks: { callback: v => '$'+v.toLocaleString() } },
+      x: { grid: { display: false } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+
+// CHART 2: Spend split donut
+new Chart($('chart-spend-split'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Messaging', 'Leads', 'Boosted'],
+    datasets: [{
+      data: [totalMsgSpend, totalLeadSpend, 179.82],
+      backgroundColor: [msgColor, leadColor, '#4A235A'],
+      borderWidth: 0,
+      spacing: 3,
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '62%',
+    plugins: {
+      legend: { position: 'bottom' },
+      tooltip: { callbacks: { label: ctx => ' $' + ctx.parsed.toLocaleString() } }
+    }
+  }
+});
+
+// CHART 3: Results grouped bar
+new Chart($('chart-results-weekly'), {
+  type: 'bar',
+  data: {
+    labels: weekly.map(w => w.label),
+    datasets: [
+      { label: 'Conversations', data: weekly.map(w => w.msg_convos), backgroundColor: msgColor, borderRadius: 4, barPercentage: 0.7 },
+      { label: 'Leads', data: weekly.map(w => w.leads), backgroundColor: leadColor, borderRadius: 4, barPercentage: 0.7 },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      y: { beginAtZero: true, grid: { color: gridColor } },
+      x: { grid: { display: false } }
+    },
+    plugins: { legend: { position: 'bottom' } }
+  }
+});
+
+// LEADERBOARD TABLE
+const lbBody = $('leaderboard-body');
+const bestNames = ['MultiComM_FAQ WhatsApp', 'Gen_Lead_2.13'];
+adsets.forEach(a => {
+  const isWinner = bestNames.includes(a.name);
+  const typeClass = a.type === 'lead' ? 'lead' : (a.type === 'boost' ? 'boost' : 'msg');
+  const typeLabel = a.type === 'lead' ? 'Lead' : (a.type === 'boost' ? 'Boost' : 'Msg');
+  lbBody.innerHTML += `<tr class="${isWinner?'highlight-row':''}">
+    <td>${a.name}${isWinner?' ★':''}</td>
+    <td><span class="type-badge ${typeClass}">${typeLabel}</span></td>
+    <td>${fmt(a.spend)}</td>
+    <td>${a.results.toLocaleString()}</td>
+    <td>${a.cpr ? fmtD(a.cpr) : '—'}</td>
+    <td>${a.reach.toLocaleString()}</td>
+    <td>${a.impressions.toLocaleString()}</td>
+  </tr>`;
+});
+
+// CHART: CPR bar horizontal
+const cprData = adsets.filter(a => a.cpr).sort((a,b) => a.cpr - b.cpr);
+new Chart($('chart-cpr-bar'), {
+  type: 'bar',
+  data: {
+    labels: cprData.map(a => a.name),
+    datasets: [{
+      label: 'Cost per Result',
+      data: cprData.map(a => a.cpr),
+      backgroundColor: cprData.map(a => a.type === 'lead' ? leadColor : msgColor),
+      borderRadius: 4,
+      barPercentage: 0.7,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      x: { beginAtZero: true, grid: { color: gridColor }, ticks: { callback: v => '$'+v } },
+      y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+
+// MESSAGING STACKED
+const msgSets = adsets.filter(a => a.type === 'messaging');
+const msgColors = ['#1B4F72','#2874A6','#3498DB','#5DADE2','#85C1E9','#AED6F1','#D4E6F1','#1A5276','#154360','#0E2F44'];
+// For stacked we need weekly data per messaging ad set - approximate from totals
+// Use the weekly msg_spend as the total and show as single stacked
+new Chart($('chart-msg-stacked'), {
+  type: 'bar',
+  data: {
+    labels: weekly.map(w => w.label),
+    datasets: [
+      { label: 'Messaging Spend', data: weekly.map(w => w.msg_spend), backgroundColor: msgColor, borderRadius: 4 },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      y: { beginAtZero: true, stacked: true, grid: { color: gridColor }, ticks: { callback: v => '$'+v.toLocaleString() } },
+      x: { stacked: true, grid: { display: false } }
+    },
+    plugins: { legend: { position: 'bottom' } }
+  }
+});
+
+// MSG CPR TREND
+new Chart($('chart-msg-cpr-trend'), {
+  type: 'line',
+  data: {
+    labels: weekly.map(w => w.label),
+    datasets: [{
+      label: 'Cost / Conversation',
+      data: weekly.map(w => w.msg_cpr),
+      borderColor: msgColor,
+      backgroundColor: msgColorLight,
+      fill: true,
+      tension: 0.35,
+      pointRadius: 5,
+      pointBackgroundColor: '#fff',
+      pointBorderColor: msgColor,
+      pointBorderWidth: 2,
+      borderWidth: 2.5,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      y: { beginAtZero: false, grid: { color: gridColor }, ticks: { callback: v => '$'+v.toFixed(2) } },
+      x: { grid: { display: false } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+
+// LEAD STACKED
+new Chart($('chart-lead-stacked'), {
+  type: 'bar',
+  data: {
+    labels: weekly.map(w => w.label),
+    datasets: [
+      { label: 'Lead Spend', data: weekly.map(w => w.lead_spend), backgroundColor: leadColor, borderRadius: 4 },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      y: { beginAtZero: true, grid: { color: gridColor }, ticks: { callback: v => '$'+v.toLocaleString() } },
+      x: { grid: { display: false } }
+    },
+    plugins: { legend: { position: 'bottom' } }
+  }
+});
+
+// LEAD CPR TREND
+new Chart($('chart-lead-cpr-trend'), {
+  type: 'line',
+  data: {
+    labels: weekly.map(w => w.label),
+    datasets: [{
+      label: 'Cost / Lead',
+      data: weekly.map(w => w.lead_cpr),
+      borderColor: leadColor,
+      backgroundColor: leadColorLight,
+      fill: true,
+      tension: 0.35,
+      pointRadius: 5,
+      pointBackgroundColor: '#fff',
+      pointBorderColor: leadColor,
+      pointBorderWidth: 2,
+      borderWidth: 2.5,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      y: { beginAtZero: false, grid: { color: gridColor }, ticks: { callback: v => '$'+v.toFixed(2) } },
+      x: { grid: { display: false } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+
+// MD DONUT
+new Chart($('chart-md-donut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Leadwa_Discount', 'Leadwa', 'Wa_mess'],
+    datasets: [{
+      data: [1702.19, 457.11, 410.86],
+      backgroundColor: [leadColor, '#A93226', msgColor],
+      borderWidth: 0, spacing: 3, borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: { position: 'bottom' },
+      tooltip: { callbacks: { label: ctx => ' $' + ctx.parsed.toLocaleString() } }
+    }
+  }
+});
+
+// MD WEEKLY
+new Chart($('chart-md-weekly'), {
+  type: 'bar',
+  data: {
+    labels: mdWeekly.map(w => w.label),
+    datasets: [
+      { label: 'Spend', data: mdWeekly.map(w => w.spend), backgroundColor: stoneColor, borderRadius: 4, yAxisID: 'y' },
+      { label: 'Leads', data: mdWeekly.map(w => w.leads), type: 'line', borderColor: leadColor, pointBackgroundColor: '#fff', pointBorderColor: leadColor, pointBorderWidth: 2, pointRadius: 5, borderWidth: 2.5, tension: 0.3, yAxisID: 'y1' },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      y: { beginAtZero: true, grid: { color: gridColor }, ticks: { callback: v => '$'+v }, position: 'left' },
+      y1: { beginAtZero: true, grid: { display: false }, position: 'right', ticks: { stepSize: 20 } },
+      x: { grid: { display: false } }
+    },
+    plugins: { legend: { position: 'bottom' } }
+  }
+});
+
+// AGE CHART
+new Chart($('chart-age'), {
+  type: 'bar',
+  data: {
+    labels: ageData.map(a => a.age),
+    datasets: [{
+      label: 'Spend',
+      data: ageData.map(a => a.spend),
+      backgroundColor: [sandColorLight, sandColor, stoneColor, '#DBC6A5', '#C4A265', '#A68A5B'],
+      borderRadius: 6,
+      barPercentage: 0.65,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      y: { beginAtZero: true, grid: { color: gridColor }, ticks: { callback: v => '$'+v.toLocaleString() } },
+      x: { grid: { display: false } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+
+// GENDER
+new Chart($('chart-gender'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Female','Male'],
+    datasets: [{
+      data: [8556.28, 9157.95],
+      backgroundColor: [sandColor, '#252424'],
+      borderWidth: 0, spacing: 3, borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '62%',
+    plugins: {
+      legend: { position: 'bottom' },
+      tooltip: { callbacks: { label: ctx => ' $' + ctx.parsed.toLocaleString() + ' (' + (ctx.parsed/(8556.28+9157.95)*100).toFixed(1) + '%)' } }
+    }
+  }
+});
+
+// AGE CPR
+new Chart($('chart-age-cpr'), {
+  type: 'bar',
+  data: {
+    labels: ageData.map(a => a.age),
+    datasets: [{
+      label: 'Cost/Result',
+      data: ageData.map(a => a.cpr),
+      backgroundColor: ageData.map(a => a.cpr < 2 ? '#1E6B45' : (a.cpr < 5 ? sandColor : leadColor)),
+      borderRadius: 6,
+      barPercentage: 0.6,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      y: { beginAtZero: true, grid: { color: gridColor }, ticks: { callback: v => '$'+v } },
+      x: { grid: { display: false } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+
+// AGE TABLE
+const ageBody = $('age-table-body');
+ageData.forEach(a => {
+  ageBody.innerHTML += `<tr><td>${a.age}</td><td>${fmt(a.spend)}</td><td>${a.pct}%</td><td>${a.results.toLocaleString()}</td><td>${a.cpr ? fmtD(a.cpr) : '—'}</td></tr>`;
+});
+</script>
+</body>
+</html>

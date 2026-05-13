@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Joyería Cali & Co. — Oro Auténtico en Utah</title>
+<meta name="description" content="La variedad más amplia de oro auténtico 10K, 14K y 18K en Utah. Joyería para bodas, quinceañeras y graduaciones. Financiamiento disponible." />
+
+<!-- ============================================================
+     FUENTES
+     1. Nicholas (Adobe Fonts) — pegar el ID del kit abajo
+     2. Montserrat (Google Fonts) — texto de apoyo
+     3. Cormorant Garamond — fallback elegante mientras se carga Nicholas
+============================================================ -->
+
+<!-- ===== ADOBE FONTS KIT — REEMPLAZAR ID DEL KIT AQUÍ =====
+     Ejemplo: <link rel="stylesheet" href="https://use.typekit.net/abc1def.css">
+     Si aún no tienes el kit, el fallback (Cormorant Garamond) cubre el estilo. -->
+<link rel="stylesheet" href="https://use.typekit.net/REEMPLAZAR_KIT_ID.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS DE DISEÑO
+============================================================ */
+:root {
+  /* ===== REEMPLAZAR NÚMERO DE TELÉFONO =====
+     Formato WhatsApp: código de país + número, sin símbolos.
+     Ejemplo: 18016751825 */
+
+  --gold-deep:    #B8860B;
+  --gold:         #C9A24B;
+  --gold-light:   #E5C8A6;
+  --gold-pale:    #F4E9D4;
+  --gold-bright:  #F2D27A;
+  --cream:        #FAF7F1;
+  --cream-warm:   #F1EAD9;
+  --ink:          #161311;
+  --ink-soft:     #2A2421;
+  --line:         rgba(22, 19, 17, 0.12);
+  --glass-bg:     rgba(255, 255, 255, 0.55);
+  --glass-dark:   rgba(22, 19, 17, 0.55);
+  --glass-border: rgba(201, 162, 75, 0.45);
+
+  --wa-green:     #25D366;
+  --wa-green-dark:#1FAF54;
+
+  --shadow-soft:  0 10px 40px -12px rgba(22, 19, 17, 0.18);
+  --shadow-deep:  0 24px 60px -20px rgba(22, 19, 17, 0.35);
+  --shadow-wa:    0 12px 36px -8px rgba(37, 211, 102, 0.55);
+
+  --radius:       18px;
+  --radius-lg:    28px;
+
+  --font-display: 'nicholas', 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-body:    'Montserrat', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, video { max-width: 100%; display: block; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+a { color: inherit; text-decoration: none; }
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============================================================
+   BOTÓN WHATSAPP — verde oficial, grande, con pulso
+============================================================ */
+.wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 32px;
+  background: linear-gradient(135deg, var(--wa-green) 0%, var(--wa-green-dark) 100%);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: var(--shadow-wa), inset 0 1px 0 rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+.wa-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.wa-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 44px -8px rgba(37, 211, 102, 0.7), inset 0 1px 0 rgba(255,255,255,0.4);
+  filter: brightness(1.05);
+}
+.wa-btn:hover::before { opacity: 1; }
+.wa-btn:active { transform: translateY(-1px); }
+
+.wa-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+.wa-btn--xl {
+  padding: 22px 44px;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+}
+.wa-btn--xl svg { width: 26px; height: 26px; }
+
+.wa-btn--pulse { animation: pulse-glow 2.4s ease-in-out infinite; }
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: var(--shadow-wa), inset 0 1px 0 rgba(255,255,255,0.3); }
+  50%      { box-shadow: 0 12px 50px -4px rgba(37, 211, 102, 0.85), 0 0 0 8px rgba(37, 211, 102, 0.12), inset 0 1px 0 rgba(255,255,255,0.4); }
+}
+
+.wa-btn--small {
+  padding: 12px 20px;
+  font-size: 0.85rem;
+}
+.wa-btn--small svg { width: 18px; height: 18px; }
+
+.wa-btn--ghost {
+  background: transparent;
+  color: var(--cream);
+  border: 2px solid var(--gold);
+  box-shadow: none;
+  font-weight: 600;
+}
+.wa-btn--ghost:hover {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+/* ============================================================
+   NAVEGACIÓN
+============================================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 18px 0;
+  background: rgba(250, 247, 241, 0.85);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+  transition: padding 0.3s ease;
+}
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.nav__logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--ink);
+}
+.nav__logo span {
+  font-style: italic;
+  color: var(--gold-deep);
+  font-weight: 500;
+}
+.nav__links {
+  display: none;
+  gap: 36px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.nav__links a {
+  color: var(--ink-soft);
+  position: relative;
+  transition: color 0.2s;
+}
+.nav__links a:hover { color: var(--gold-deep); }
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -6px;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+.nav__links a:hover::after { width: 100%; }
+
+@media (min-width: 900px) {
+  .nav__links { display: flex; }
+}
+
+/* ============================================================
+   HERO — con placeholder de video visible
+============================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-top: 90px;
+  padding-bottom: 60px;
+  background: var(--ink);
+}
+
+/* ===== PLACEHOLDER DE VIDEO — VISIBLE Y MARCADO =====
+     Cuando tengas el video, reemplaza el div .video-placeholder por:
+     <video class="hero__video" autoplay muted loop playsinline poster="">
+       <source src="TU_VIDEO.mp4" type="video/mp4">
+     </video>
+============================================================ */
+.video-placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(135deg, rgba(22,19,17,0.85) 0%, rgba(42,36,33,0.85) 100%),
+    radial-gradient(ellipse at 30% 20%, rgba(229, 200, 166, 0.4), transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(184, 134, 11, 0.3), transparent 55%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.video-placeholder__inner {
+  text-align: center;
+  color: var(--cream);
+  padding: 32px;
+  border: 2px dashed var(--gold-light);
+  border-radius: var(--radius);
+  background: rgba(22, 19, 17, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  max-width: 420px;
+}
+.video-placeholder__icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+}
+.video-placeholder__icon svg { width: 32px; height: 32px; }
+.video-placeholder__label {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--gold-light);
+}
+.video-placeholder__sub {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(250,247,241,0.7);
+}
+
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(22,19,17,0.55) 0%, rgba(22,19,17,0.65) 60%, rgba(22,19,17,0.85) 100%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 60px 0;
+  color: var(--cream);
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.1s ease forwards;
+}
+.hero__eyebrow::before {
+  content: '';
+  width: 36px; height: 1px;
+  background: var(--gold);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 7vw, 5.6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  max-width: 14ch;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 1s 0.25s ease forwards;
+}
+.hero__title em {
+  font-style: italic;
+  font-weight: 400;
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold-light) 50%, var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero__subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(250, 247, 241, 0.92);
+  max-width: 52ch;
+  margin-bottom: 44px;
+  opacity: 0;
+  animation: fadeUp 1s 0.45s ease forwards;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  opacity: 0;
+  animation: fadeUp 1s 0.65s ease forwards;
+}
+
+.hero__card {
+  position: absolute;
+  right: 24px;
+  bottom: 40px;
+  z-index: 3;
+  padding: 22px 26px;
+  background: var(--glass-dark);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  color: var(--cream);
+  max-width: 280px;
+  box-shadow: var(--shadow-deep);
+  opacity: 0;
+  animation: fadeUp 1s 0.9s ease forwards;
+  display: none;
+}
+.hero__card-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+}
+.hero__card-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--cream);
+}
+@media (min-width: 900px) {
+  .hero__card { display: block; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: var(--gold-light);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: bob 2.4s ease-in-out infinite;
+}
+.hero__scroll::after {
+  content: '';
+  width: 1px; height: 36px;
+  background: linear-gradient(180deg, var(--gold) 0%, transparent 100%);
+}
+@keyframes bob {
+  0%, 100% { transform: translate(-50%, 0); }
+  50%      { transform: translate(-50%, 6px); }
+}
+
+/* ============================================================
+   ENCABEZADOS DE SECCIÓN
+============================================================ */
+.section {
+  padding: 100px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.section__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 20px;
+}
+.section__eyebrow::before {
+  content: '';
+  width: 32px; height: 1px;
+  background: var(--gold);
+}
+
+.section__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 700;
+  margin-bottom: 18px;
+  max-width: 18ch;
+}
+.section__title em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold-deep);
+}
+
+.section__lead {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  max-width: 56ch;
+  margin-bottom: 48px;
+  line-height: 1.65;
+}
+
+/* ============================================================
+   MÁS VENDIDOS
+============================================================ */
+.bestsellers {
+  background: var(--cream);
+  overflow: hidden;
+}
+.marquee {
+  margin: 0 -24px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.marquee__track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  animation: scroll 50s linear infinite;
+}
+.marquee__track:hover { animation-play-state: paused; }
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.product-card {
+  flex: 0 0 280px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-deep);
+}
+
+/* ===== PLACEHOLDER IMG — reemplazar con <img src="..."> ===== */
+.product-card__img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, var(--cream-warm) 0%, var(--gold-pale) 50%, var(--gold-light) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.product-card__img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), transparent 50%);
+  pointer-events: none;
+}
+.product-card__img img { width: 100%; height: 100%; object-fit: cover; }
+
+.product-card__body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.product-card__karat {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.product-card__name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.15;
+}
+.product-card__cta { margin-top: auto; }
+
+/* ============================================================
+   CATEGORÍAS
+============================================================ */
+.categories {
+  background: linear-gradient(180deg, var(--cream) 0%, var(--cream-warm) 100%);
+}
+.cat-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) {
+  .cat-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.cat-card {
+  position: relative;
+  min-height: 460px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px) saturate(130%);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+}
+.cat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-deep);
+}
+
+.cat-card__media {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, var(--gold-pale) 0%, var(--gold-light) 60%, var(--gold) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.cat-card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(255,255,255,0.5), transparent 60%),
+    linear-gradient(180deg, transparent 40%, rgba(22,19,17,0.5) 100%);
+}
+.cat-card__media-label {
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
+  z-index: 2;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.9;
+}
+.cat-card__media img { width: 100%; height: 100%; object-fit: cover; }
+
+.cat-card__body {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+.cat-card__title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+}
+.cat-card__desc {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  flex: 1;
+}
+.cat-card__cta {
+  margin-top: 8px;
+  align-self: flex-start;
+}
+
+.cat-card__expand {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 0 30px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease, opacity 0.4s ease, padding 0.4s ease;
+}
+.cat-card.is-open .cat-card__expand {
+  max-height: 200px;
+  opacity: 1;
+  padding-bottom: 30px;
+}
+.cat-card__mini {
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, var(--cream-warm), var(--gold-light));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.08em;
+  text-align: center;
+  padding: 6px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   POR QUÉ JOYERÍA CALI — FONDO CLARO (legibilidad arreglada)
+============================================================ */
+.why {
+  background: linear-gradient(180deg, var(--cream-warm) 0%, var(--cream) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.why::before {
+  content: '';
+  position: absolute;
+  top: -150px; right: -150px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(201,162,75,0.15), transparent 60%);
+  pointer-events: none;
+}
+
+.why__grid {
+  display: grid;
+  gap: 60px;
+  grid-template-columns: 1fr;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+@media (min-width: 900px) {
+  .why__grid { grid-template-columns: 1.1fr 1fr; gap: 80px; }
+}
+
+.why__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 40px 0;
+  padding: 36px 0;
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+}
+.why__stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: var(--gold-deep);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.why__stat-label {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.why__visual {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--gold-deep) 0%, var(--gold) 50%, var(--gold-light) 100%);
+  overflow: hidden;
+  box-shadow: var(--shadow-deep);
+}
+.why__visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 55%);
+}
+.why__visual-tag {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  z-index: 2;
+  padding: 22px 24px;
+  background: rgba(22, 19, 17, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--gold);
+  border-radius: 14px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--cream);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   CTA FINAL
+============================================================ */
+.final {
+  padding: 120px 0;
+  background: linear-gradient(135deg, var(--gold-pale) 0%, var(--gold-light) 50%, var(--gold) 100%);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.5), transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(184,134,11,0.3), transparent 50%);
+  pointer-events: none;
+}
+.final__inner { position: relative; z-index: 2; }
+.final__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+}
+.final__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+  font-weight: 700;
+  margin-bottom: 22px;
+  max-width: 16ch;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1;
+}
+.final__title em { font-style: italic; font-weight: 500; }
+.final__subtitle {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  margin-bottom: 40px;
+  max-width: 48ch;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   PIE DE PÁGINA
+============================================================ */
+.footer {
+  background: var(--ink);
+  color: rgba(250,247,241,0.75);
+  padding: 70px 0 30px;
+}
+.footer__grid {
+  display: grid;
+  gap: 40px;
+  grid-template-columns: 1fr;
+  margin-bottom: 40px;
+}
+@media (min-width: 760px) {
+  .footer__grid { grid-template-columns: 1.4fr 1fr 1fr; }
+}
+.footer__brand {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 14px;
+}
+.footer__brand span { color: var(--gold-light); font-style: italic; font-weight: 400; }
+.footer__tag {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--gold-light);
+  margin-bottom: 18px;
+}
+.footer__col h4 {
+  font-family: var(--font-body);
+  color: var(--cream);
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.footer__col p, .footer__col a {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  display: block;
+  color: rgba(250,247,241,0.75);
+  transition: color 0.2s;
+}
+.footer__col a:hover { color: var(--gold-light); }
+.footer__bottom {
+  border-top: 1px solid rgba(250,247,241,0.1);
+  padding-top: 24px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ============================================================
+   BOTÓN FLOTANTE DE WHATSAPP
+============================================================ */
+.wa-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--wa-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 32px -6px rgba(37, 211, 102, 0.7);
+  transition: transform 0.3s ease;
+  animation: float-pulse 2.4s ease-in-out infinite;
+}
+.wa-float:hover { transform: scale(1.1); }
+.wa-float svg { width: 32px; height: 32px; color: #fff; }
+
+@keyframes float-pulse {
+  0%, 100% { box-shadow: 0 12px 32px -6px rgba(37, 211, 102, 0.7), 0 0 0 0 rgba(37,211,102,0.4); }
+  50%      { box-shadow: 0 12px 32px -6px rgba(37, 211, 102, 0.7), 0 0 0 14px rgba(37,211,102,0); }
+}
+
+/* ============================================================
+   ANIMACIONES DE SCROLL
+============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee__track { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Iconos SVG reutilizables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="wa-icon" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"/>
+    </symbol>
+    <symbol id="play-icon" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M8 5v14l11-7z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- NAVEGACIÓN -->
+<nav class="nav">
+  <div class="container nav__inner">
+    <a href="#" class="nav__logo">Joyería Cali <span>& Co.</span></a>
+    <div class="nav__links">
+      <a href="#bestsellers">Más Vendidos</a>
+      <a href="#categories">Ocasiones</a>
+      <a href="#why">Por Qué Cali</a>
+      <a href="#visit">Visítanos</a>
+    </div>
+    <a class="wa-btn wa-btn--small" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+una+joya+de+Joyer%C3%ADa+Cali" target="_blank" rel="noopener">
+      <svg><use href="#wa-icon"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- ===== PLACEHOLDER DE VIDEO (visible y marcado) =====
+       Para usar tu video real, reemplaza este DIV completo con:
+       <video class="hero__video" autoplay muted loop playsinline poster="">
+         <source src="TU_VIDEO.mp4" type="video/mp4">
+       </video>
+  -->
+  <div class="video-placeholder" aria-label="Espacio reservado para video">
+    <div class="video-placeholder__inner">
+      <div class="video-placeholder__icon">
+        <svg><use href="#play-icon"/></svg>
+      </div>
+      <div class="video-placeholder__label">Video de Joyería Cali</div>
+      <div class="video-placeholder__sub">Reemplazar con comercial</div>
+    </div>
+  </div>
+
+  <div class="hero__overlay" aria-hidden="true"></div>
+
+  <div class="container hero__content">
+    <div class="hero__eyebrow">West Valley City · Utah</div>
+    <h1 class="hero__title">
+      Oro auténtico para los momentos que <em>importan</em>
+    </h1>
+    <p class="hero__subtitle">
+      Joyería de oro 10K, 14K y 18K. La variedad más amplia en Utah para bodas,
+      quinceañeras, graduaciones y los momentos que se quedan para siempre.
+      Financiamiento disponible.
+    </p>
+    <div class="hero__cta">
+      <a class="wa-btn wa-btn--xl wa-btn--pulse" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+gustar%C3%ADa+conocer+m%C3%A1s+sobre+sus+joyas+de+oro" target="_blank" rel="noopener">
+        <svg><use href="#wa-icon"/></svg>
+        Escríbenos por WhatsApp
+      </a>
+      <a class="wa-btn wa-btn--ghost wa-btn--xl" href="#categories">Ver Ocasiones</a>
+    </div>
+  </div>
+
+  <aside class="hero__card" aria-hidden="true">
+    <div class="hero__card-label">Desde el corazón</div>
+    <div class="hero__card-text">"Joyería Cali, joyería de calidad."</div>
+  </aside>
+
+  <div class="hero__scroll">Desliza</div>
+</section>
+
+<!-- MÁS VENDIDOS -->
+<section class="section bestsellers" id="bestsellers">
+  <div class="container">
+    <div class="reveal">
+      <div class="section__eyebrow">Favoritos del cliente</div>
+      <h2 class="section__title">Las joyas que más nos <em>piden</em></h2>
+      <p class="section__lead">
+        Pasa el cursor para pausar. Toca cualquier joya para abrir una conversación
+        privada por WhatsApp. Pregunta por quilates, peso, tallas o financiamiento.
+      </p>
+    </div>
+  </div>
+
+  <div class="marquee reveal">
+    <div class="marquee__track">
+
+      <article class="product-card">
+        <div class="product-card__img" aria-label="Foto del producto aquí">Foto Cuban Link</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 14K</div>
+          <h3 class="product-card__name">Cadena Cuban Link</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+la+cadena+Cuban+Link" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__img" aria-label="Foto del producto aquí">Foto Pulsera Tennis</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 18K</div>
+          <h3 class="product-card__name">Pulsera Tennis</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+la+pulsera+Tennis" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__img" aria-label="Foto del producto aquí">Foto Virgen de Guadalupe</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 14K</div>
+          <h3 class="product-card__name">Dije Virgen de Guadalupe</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+el+dije+de+la+Virgen+de+Guadalupe" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__img" aria-label="Foto del producto aquí">Foto Aros de Boda</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 18K</div>
+          <h3 class="product-card__name">Aros de Boda (par)</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesan+los+aros+de+boda" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__img" aria-label="Foto del producto aquí">Foto Aretes de Argolla</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 14K</div>
+          <h3 class="product-card__name">Aretes de Argolla</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesan+los+aretes+de+argolla" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__img" aria-label="Foto del producto aquí">Foto Juego Quinceañera</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 10K</div>
+          <h3 class="product-card__name">Juego de Quinceañera</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+el+juego+de+quincea%C3%B1era" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__img" aria-label="Foto del producto aquí">Foto Cadena con Nombre</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 14K</div>
+          <h3 class="product-card__name">Cadena con Nombre</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+una+cadena+con+nombre" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__img" aria-label="Foto del producto aquí">Foto Anillo de Compromiso</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 18K</div>
+          <h3 class="product-card__name">Anillo de Compromiso</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+un+anillo+de+compromiso" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+
+      <!-- Duplicado para scroll infinito -->
+      <article class="product-card" aria-hidden="true">
+        <div class="product-card__img">Foto Cuban Link</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 14K</div>
+          <h3 class="product-card__name">Cadena Cuban Link</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+la+cadena+Cuban+Link" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+      <article class="product-card" aria-hidden="true">
+        <div class="product-card__img">Foto Pulsera Tennis</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 18K</div>
+          <h3 class="product-card__name">Pulsera Tennis</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+la+pulsera+Tennis" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+      <article class="product-card" aria-hidden="true">
+        <div class="product-card__img">Foto Virgen de Guadalupe</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 14K</div>
+          <h3 class="product-card__name">Dije Virgen de Guadalupe</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+el+dije+de+la+Virgen+de+Guadalupe" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+      <article class="product-card" aria-hidden="true">
+        <div class="product-card__img">Foto Aros de Boda</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 18K</div>
+          <h3 class="product-card__name">Aros de Boda (par)</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesan+los+aros+de+boda" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+      <article class="product-card" aria-hidden="true">
+        <div class="product-card__img">Foto Aretes de Argolla</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 14K</div>
+          <h3 class="product-card__name">Aretes de Argolla</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesan+los+aretes+de+argolla" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+      <article class="product-card" aria-hidden="true">
+        <div class="product-card__img">Foto Juego Quinceañera</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 10K</div>
+          <h3 class="product-card__name">Juego de Quinceañera</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+el+juego+de+quincea%C3%B1era" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+      <article class="product-card" aria-hidden="true">
+        <div class="product-card__img">Foto Cadena con Nombre</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 14K</div>
+          <h3 class="product-card__name">Cadena con Nombre</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+una+cadena+con+nombre" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+      <article class="product-card" aria-hidden="true">
+        <div class="product-card__img">Foto Anillo de Compromiso</div>
+        <div class="product-card__body">
+          <div class="product-card__karat">Oro 18K</div>
+          <h3 class="product-card__name">Anillo de Compromiso</h3>
+          <a class="wa-btn wa-btn--small product-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+un+anillo+de+compromiso" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>Pregunta por esta joya
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORÍAS -->
+<section class="section categories" id="categories">
+  <div class="container">
+    <div class="reveal">
+      <div class="section__eyebrow">Para los momentos que importan</div>
+      <h2 class="section__title">Hecho para las <em>celebraciones</em> más grandes</h2>
+      <p class="section__lead">
+        Toca cualquier ocasión para ver nuestras joyas más pedidas.
+        Después escríbenos directo para hablar de tallas, financiamiento y grabados personalizados.
+      </p>
+    </div>
+
+    <div class="cat-grid">
+
+      <article class="cat-card reveal" data-cat>
+        <div class="cat-card__media">
+          <span class="cat-card__media-label">Foto Boda</span>
+        </div>
+        <div class="cat-card__body">
+          <h3 class="cat-card__title">Bodas</h3>
+          <p class="cat-card__desc">
+            Juegos nupciales, aros de boda y joyas de aniversario.
+            Oro de calidad heredable, hecho para durar más que la ceremonia.
+          </p>
+          <a class="wa-btn wa-btn--small cat-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+joyer%C3%ADa+para+boda" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>
+            Joyería para Boda
+          </a>
+        </div>
+        <div class="cat-card__expand">
+          <div class="cat-card__mini">Aros</div>
+          <div class="cat-card__mini">Anillo</div>
+          <div class="cat-card__mini">Aniversario</div>
+        </div>
+      </article>
+
+      <article class="cat-card reveal" data-cat>
+        <div class="cat-card__media">
+          <span class="cat-card__media-label">Foto Quinceañera</span>
+        </div>
+        <div class="cat-card__body">
+          <h3 class="cat-card__title">Quinceañeras</h3>
+          <p class="cat-card__desc">
+            El juego completo para sus quince: tiara, aretes, cadena y pulsera.
+            Para que brille en cada foto, toda la vida.
+          </p>
+          <a class="wa-btn wa-btn--small cat-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+joyer%C3%ADa+para+quincea%C3%B1era" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>
+            Juegos de Quinceañera
+          </a>
+        </div>
+        <div class="cat-card__expand">
+          <div class="cat-card__mini">Juego</div>
+          <div class="cat-card__mini">Tiara</div>
+          <div class="cat-card__mini">Cadena</div>
+        </div>
+      </article>
+
+      <article class="cat-card reveal" data-cat>
+        <div class="cat-card__media">
+          <span class="cat-card__media-label">Foto Graduación</span>
+        </div>
+        <div class="cat-card__body">
+          <h3 class="cat-card__title">Graduaciones</h3>
+          <p class="cat-card__desc">
+            Celebra el logro en oro auténtico. Anillos de graduación,
+            cadenas especiales y piezas personalizadas para marcar el momento.
+          </p>
+          <a class="wa-btn wa-btn--small cat-card__cta" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+joyer%C3%ADa+para+graduaci%C3%B3n" target="_blank" rel="noopener">
+            <svg><use href="#wa-icon"/></svg>
+            Joyería de Graduación
+          </a>
+        </div>
+        <div class="cat-card__expand">
+          <div class="cat-card__mini">Anillo</div>
+          <div class="cat-card__mini">Cadena</div>
+          <div class="cat-card__mini">Dije</div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- POR QUÉ JOYERÍA CALI — FONDO CLARO -->
+<section class="section why" id="why">
+  <div class="container">
+    <div class="why__grid">
+      <div class="reveal">
+        <div class="section__eyebrow">Por qué Joyería Cali</div>
+        <h2 class="section__title">La variedad más amplia de <em>oro auténtico</em> en Utah.</h2>
+        <p class="section__lead">
+          Oro 18K, 14K y 10K. Cada joya en nuestra tienda es oro certificado de verdad.
+          Nada de chapado, nada de baño. Financiamiento disponible para que la joya
+          perfecta nunca esté fuera de tu alcance.
+        </p>
+
+        <div class="why__stats">
+          <div>
+            <div class="why__stat-num">18K</div>
+            <div class="why__stat-label">14K & 10K</div>
+          </div>
+          <div>
+            <div class="why__stat-num">100%</div>
+            <div class="why__stat-label">Oro Real</div>
+          </div>
+          <div>
+            <div class="why__stat-num">$0</div>
+            <div class="why__stat-label">De Enganche</div>
+          </div>
+        </div>
+
+        <a class="wa-btn wa-btn--xl" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+gustar%C3%ADa+preguntar+sobre+financiamiento" target="_blank" rel="noopener">
+          <svg><use href="#wa-icon"/></svg>
+          Pregunta por Financiamiento
+        </a>
+      </div>
+
+      <div class="why__visual reveal" aria-label="Foto destacada de joya">
+        <div class="why__visual-tag">
+          "Oro auténtico. Joyería de verdad. Oro que se hereda."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final" id="visit">
+  <div class="container final__inner">
+    <div class="reveal">
+      <div class="final__eyebrow">Empieza la conversación</div>
+      <h2 class="final__title">Tu próxima <em>joya</em> está a un mensaje.</h2>
+      <p class="final__subtitle">
+        Cuéntanos qué buscas. Te mandamos fotos, precios y opciones de
+        financiamiento. Directo a tu WhatsApp.
+      </p>
+      <a class="wa-btn wa-btn--xl wa-btn--pulse" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+quiero+empezar+una+conversaci%C3%B3n+con+Joyer%C3%ADa+Cali" target="_blank" rel="noopener">
+        <svg><use href="#wa-icon"/></svg>
+        Escríbenos por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PIE DE PÁGINA -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">Joyería Cali <span>& Co.</span></div>
+        <p class="footer__tag">"Joyería Cali, joyería de calidad."</p>
+        <p>La variedad más amplia de oro auténtico 10K, 14K y 18K en Utah.<br>Financiamiento disponible.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Visítanos</h4>
+        <p>2470 S Redwood Rd, STE 114<br>(dentro del Latino Mall)<br>West Valley City, UT 84119</p>
+      </div>
+      <div class="footer__col">
+        <h4>Horario</h4>
+        <p>Lun–Sáb · 11 AM – 6:30 PM<br>Dom · 11 AM – 4 PM</p>
+        <p><a href="tel:+18016751825">(801) 675-1825</a></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div>© 2026 Joyería Cali & Co. Todos los derechos reservados.</div>
+      <div>West Valley City · Utah</div>
+    </div>
+  </div>
+</footer>
+
+<!-- BOTÓN FLOTANTE -->
+<a class="wa-float" href="https://wa.me/[PHONE_NUMBER]?text=Hola%2C+me+interesa+una+joya+de+Joyer%C3%ADa+Cali" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg><use href="#wa-icon"/></svg>
+</a>
+
+<script>
+(function() {
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+document.querySelectorAll('[data-cat]').forEach(card => {
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('.wa-btn')) return;
+    card.classList.toggle('is-open');
+  });
+});
+
+const nav = document.querySelector('.nav');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  nav.style.padding = y > 40 ? '12px 0' : '18px 0';
+}, { passive: true });
+</script>
+
+</body>
+</html>
